@@ -1,4 +1,8 @@
 import 'package:app_instagram/resources/auth_methods.dart';
+import 'package:app_instagram/responsive/mobile_layout_screen.dart';
+import 'package:app_instagram/responsive/responsive_layout_screen.dart';
+import 'package:app_instagram/responsive/web_layout_screen.dart';
+import 'package:app_instagram/screens/signup_screen.dart';
 import 'package:app_instagram/utils/colors.dart';
 import 'package:app_instagram/utils/utils.dart';
 import 'package:app_instagram/widgets/text_field_input.dart';
@@ -35,6 +39,10 @@ class _LoginScreenState extends State<LoginScreen> {
         email: _emailController.text, password: _passwordController.text);
 
     if (res == 'success') {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+              webScreenLayout: WebScreenLayout(),
+              mobileScreenLayout: MobileScreenLayout())));
     } else {
       showSnackBar(res, context);
     }
@@ -42,6 +50,11 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _isLoading = false;
     });
+  }
+
+  void navigateToSignup() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const SignupScreen()));
   }
 
   @override
@@ -109,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 8),
                   ),
                   GestureDetector(
-                      onTap: () {},
+                      onTap: navigateToSignup,
                       child: Container(
                           child: const Text('Sign up',
                               style: TextStyle(fontWeight: FontWeight.bold)),

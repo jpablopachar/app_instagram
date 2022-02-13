@@ -1,6 +1,10 @@
 import 'dart:typed_data';
 
 import 'package:app_instagram/resources/auth_methods.dart';
+import 'package:app_instagram/responsive/mobile_layout_screen.dart';
+import 'package:app_instagram/responsive/responsive_layout_screen.dart';
+import 'package:app_instagram/responsive/web_layout_screen.dart';
+import 'package:app_instagram/screens/login_screen.dart';
 import 'package:app_instagram/utils/colors.dart';
 import 'package:app_instagram/utils/utils.dart';
 import 'package:app_instagram/widgets/text_field_input.dart';
@@ -37,7 +41,9 @@ class _SignupScreenState extends State<SignupScreen> {
   void selectImage() async {
     Uint8List uint8list = await pickImage(ImageSource.gallery);
 
-    setState(() { _image = uint8list; });
+    setState(() {
+      _image = uint8list;
+    });
   }
 
   void signUpUser() async {
@@ -53,16 +59,22 @@ class _SignupScreenState extends State<SignupScreen> {
         file: _image!);
 
     if (res == 'success') {
-      setState(() {
-        _isLoading = false;
-      });
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+              webScreenLayout: WebScreenLayout(),
+              mobileScreenLayout: MobileScreenLayout())));
     } else {
-      setState(() {
-        _isLoading = false;
-      });
-
       showSnackBar(res, context);
     }
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  void navigateToLogin() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
 
   @override
@@ -174,7 +186,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 8),
                   ),
                   GestureDetector(
-                      onTap: () {},
+                      onTap: navigateToLogin,
                       child: Container(
                           child: const Text('Sign up',
                               style: TextStyle(fontWeight: FontWeight.bold)),
