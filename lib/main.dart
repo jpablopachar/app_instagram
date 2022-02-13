@@ -1,6 +1,6 @@
 /* import 'package:app_instagram/responsive/mobile_layout_screen.dart';
 import 'package:app_instagram/responsive/responsive_layout_screen.dart'; */
-import 'package:app_instagram/screens/signup_screen.dart';
+import 'package:app_instagram/screens/login_screen.dart';
 import 'package:app_instagram/utils/colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -37,7 +37,8 @@ class MyApp extends StatelessWidget {
       /* home: const ResponsiveLayout(
           webScreenLayout: WebScreenLayout(),
           mobileScreenLayout: MobileScreenLayout()), */
-      home: SignupScreen(),
+      // home: SignupScreen(),
+      home: LoginScreen(),
     );
   }
 }
